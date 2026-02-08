@@ -1,88 +1,176 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minecraft Enchant Tool</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft Enchant Tool</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
 
-<style>
-body{
-  margin:0;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:
-    linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.95)),
-    url('https://i.imgur.com/6s0KqYV.jpg');
-  background-size:cover;
-  font-family:Arial;
-  color:white;
-}
-.box{
-  width:95%;
-  max-width:420px;
-  background:rgba(15,15,15,.9);
-  padding:18px;
-  border-radius:12px;
-  box-shadow:0 0 25px rgba(0,255,255,.35);
-  text-align:center;
-}
-h1{margin:0 0 10px;color:#00ffff}
-input,select,button{
-  width:100%;
-  margin:6px 0;
-  padding:10px;
-  border-radius:8px;
-  border:none;
-  font-size:15px;
-}
-button{
-  background:linear-gradient(45deg,#00ffff,#00ff99);
-  font-weight:bold;
-}
-pre{
-  background:black;
-  padding:10px;
-  border-radius:8px;
-  margin-top:10px;
-  overflow:auto;
-}
-</style>
+    header {
+      background: #020617;
+      padding: 15px;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      border-bottom: 2px solid #38bdf8;
+    }
+
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #020617;
+      border-right: 2px solid #38bdf8;
+      padding: 10px;
+    }
+
+    .tool-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 8px;
+      border: none;
+      border-radius: 8px;
+      background: #1e293b;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .tool-btn:hover {
+      background: #38bdf8;
+      color: black;
+    }
+
+    .content {
+      flex: 1;
+      padding: 15px;
+    }
+
+    .card {
+      background: #020617;
+      padding: 15px;
+      border-radius: 12px;
+      border: 2px solid #38bdf8;
+      margin-bottom: 15px;
+    }
+
+    pre {
+      background: black;
+      padding: 10px;
+      border-radius: 8px;
+      overflow-x: auto;
+      color: #38bdf8;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="box">
-<h1>MC Enchant Tool</h1>
+<header>🧙 Minecraft Enchant Tool</header>
 
-<input id="item" placeholder="Vật phẩm (vd: diamond_sword)">
-<input id="lvl" type="number" placeholder="Cấp (vd: 1000)">
+<div class="container">
+  <div class="sidebar">
+    <button class="tool-btn" onclick="showTool('pickaxe')">⛏️ Cuốc Netherite</button>
+    <button class="tool-btn" onclick="showTool('sword')">⚔️ Kiếm Netherite</button>
+    <button class="tool-btn" onclick="showTool('axe')">🪓 Rìu</button>
+    <button class="tool-btn" onclick="showTool('bow')">🏹 Cung</button>
+    <button class="tool-btn" onclick="showTool('armor')">🛡️ Full giáp</button>
+  </div>
 
-<select id="ench">
-  <option value="sharpness">Sharpness</option>
-  <option value="efficiency">Efficiency</option>
-  <option value="unbreaking">Unbreaking</option>
-  <option value="fortune">Fortune</option>
-  <option value="protection">Protection</option>
-  <option value="power">Power</option>
-</select>
-
-<button onclick="gen()">Tạo lệnh</button>
-
-<pre id="out">/give @p diamond_sword{Enchantments:[{id:sharpness,lvl:1000}]} 1</pre>
+  <div class="content" id="content">
+    <div class="card">
+      <h2>Chọn 1 công cụ bên trái 👈</h2>
+      <p>Web hỗ trợ tạo đồ Minecraft full enchant nhanh gọn lẹ.</p>
+    </div>
+  </div>
 </div>
 
 <script>
-function gen(){
-  let item=document.getElementById("item").value||"diamond_sword";
-  let lvl=document.getElementById("lvl").value||1000;
-  let ench=document.getElementById("ench").value;
+function showTool(type) {
+  let html = "";
 
-  let cmd=`/give @p ${item}{Enchantments:[{id:${ench},lvl:${lvl}}]} 1`;
-  document.getElementById("out").textContent=cmd;
+  if (type === "pickaxe") {
+    html = `
+    <div class="card">
+      <h2>⛏️ Cuốc Netherite</h2>
+      <ul>
+        <li>Efficiency V</li>
+        <li>Unbreaking III</li>
+        <li>Fortune III / Silk Touch</li>
+        <li>Mending</li>
+      </ul>
+      <h3>Lệnh:</h3>
+      <pre>/give @p netherite_pickaxe{Enchantments:[{id:efficiency,lvl:5},{id:unbreaking,lvl:3},{id:fortune,lvl:3},{id:mending,lvl:1}]}</pre>
+    </div>`;
+  }
+
+  if (type === "sword") {
+    html = `
+    <div class="card">
+      <h2>⚔️ Kiếm Netherite</h2>
+      <ul>
+        <li>Sharpness V</li>
+        <li>Fire Aspect II</li>
+        <li>Looting III</li>
+        <li>Unbreaking III</li>
+        <li>Mending</li>
+      </ul>
+      <h3>Lệnh:</h3>
+      <pre>/give @p netherite_sword{Enchantments:[{id:sharpness,lvl:5},{id:fire_aspect,lvl:2},{id:looting,lvl:3},{id:unbreaking,lvl:3},{id:mending,lvl:1}]}</pre>
+    </div>`;
+  }
+
+  if (type === "axe") {
+    html = `
+    <div class="card">
+      <h2>🪓 Rìu</h2>
+      <ul>
+        <li>Efficiency V</li>
+        <li>Sharpness V</li>
+        <li>Unbreaking III</li>
+        <li>Mending</li>
+      </ul>
+    </div>`;
+  }
+
+  if (type === "bow") {
+    html = `
+    <div class="card">
+      <h2>🏹 Cung</h2>
+      <ul>
+        <li>Power V</li>
+        <li>Infinity / Mending</li>
+        <li>Punch II</li>
+        <li>Flame</li>
+      </ul>
+    </div>`;
+  }
+
+  if (type === "armor") {
+    html = `
+    <div class="card">
+      <h2>🛡️ Full giáp Netherite</h2>
+      <ul>
+        <li>Protection IV</li>
+        <li>Unbreaking III</li>
+        <li>Mending</li>
+        <li>Feather Falling IV (giày)</li>
+      </ul>
+    </div>`;
+  }
+
+  document.getElementById("content").innerHTML = html;
 }
 </script>
 
 </body>
-  </html>
+</html>
