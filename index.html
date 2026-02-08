@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft Enchant Tool</title>
+
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:
+    linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.95)),
+    url('https://i.imgur.com/6s0KqYV.jpg');
+  background-size:cover;
+  font-family:Arial;
+  color:white;
+}
+.box{
+  width:95%;
+  max-width:420px;
+  background:rgba(15,15,15,.9);
+  padding:18px;
+  border-radius:12px;
+  box-shadow:0 0 25px rgba(0,255,255,.35);
+  text-align:center;
+}
+h1{margin:0 0 10px;color:#00ffff}
+input,select,button{
+  width:100%;
+  margin:6px 0;
+  padding:10px;
+  border-radius:8px;
+  border:none;
+  font-size:15px;
+}
+button{
+  background:linear-gradient(45deg,#00ffff,#00ff99);
+  font-weight:bold;
+}
+pre{
+  background:black;
+  padding:10px;
+  border-radius:8px;
+  margin-top:10px;
+  overflow:auto;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h1>MC Enchant Tool</h1>
+
+<input id="item" placeholder="Vật phẩm (vd: diamond_sword)">
+<input id="lvl" type="number" placeholder="Cấp (vd: 1000)">
+
+<select id="ench">
+  <option value="sharpness">Sharpness</option>
+  <option value="efficiency">Efficiency</option>
+  <option value="unbreaking">Unbreaking</option>
+  <option value="fortune">Fortune</option>
+  <option value="protection">Protection</option>
+  <option value="power">Power</option>
+</select>
+
+<button onclick="gen()">Tạo lệnh</button>
+
+<pre id="out">/give @p diamond_sword{Enchantments:[{id:sharpness,lvl:1000}]} 1</pre>
+</div>
+
+<script>
+function gen(){
+  let item=document.getElementById("item").value||"diamond_sword";
+  let lvl=document.getElementById("lvl").value||1000;
+  let ench=document.getElementById("ench").value;
+
+  let cmd=`/give @p ${item}{Enchantments:[{id:${ench},lvl:${lvl}}]} 1`;
+  document.getElementById("out").textContent=cmd;
+}
+</script>
+
+</body>
+  </html>
